@@ -46,7 +46,7 @@ C.update_conf({'window_width': width, 'window_height': height})
 C.update_conf({'smplx_models':'./body_models'})
 
 
-def render_pair(npy_folder = "smplx_data/G001T000A000R000"):
+def render_pair(npy_folder, output_folder, fps):
 
     smplx_path_p1 = os.path.join(npy_folder, 'P1.npz')
     smplx_path_p2 = os.path.join(npy_folder, 'P2.npz')
@@ -121,11 +121,21 @@ def render_pair(npy_folder = "smplx_data/G001T000A000R000"):
     # the view is not too jittery.
     # v.lock_to_node(smplx_seq_p1, (2, 2, 2), smooth_sigma=5.0)
     v.save_video(
-        video_dir=os.path.join("D:/Inter-X/visualize/export", "headless/test.mp4"),
-        output_fps=60,  # 输出fps
+        video_dir=os.path.join(output_folder, "test.mp4"),
+        output_fps=fps,  # 输出fps
         quality="high"
         )
     
 
+
 if __name__ == '__main__':
-    render_pair()
+    import argparse
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--folder', type=str, default="smplx_data/p2_samples")
+    parser.add_argument('--fps', type=int, default=60)
+    parser.add_argument('--output_folder', type=str, default="result_videos")
+    parser.add_argument('--file_name', type=str, default="gt.npz")
+    args = parser.parse_args()
+    render_pair(npy_folder=args.folder, output_folder=args.output_folder, fps=args.fps)
+    # render_pair(file_name="gt.npz")
+    # render_pair(file_name="motions_output.npz")
