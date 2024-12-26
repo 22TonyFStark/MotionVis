@@ -13,8 +13,9 @@ betas: (1, 10)
 gender: str - "male", "female", or "neutral"  
   
 For single-person rendering:  
-```python render_single.py  ```
-
+```cd aitviewer/smplx_viewer_tool  ```  
+```python render_single.py  ```  
+  
 For two-person rendering:  
 ```python render_two.py  ```  
 When rendering two people, the camera will automatically focus on the center between them.  
